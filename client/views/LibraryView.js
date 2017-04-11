@@ -8,7 +8,7 @@ var LibraryView = Backbone.View.extend({
   initialize: function() {
     
     this.render();
-    this.fetch();
+    this.collection.on('sync', function() {this.render();}, this);
   },
 
   render: function() {
@@ -22,20 +22,5 @@ var LibraryView = Backbone.View.extend({
       })
     );
   },
-
-  fetch : function(){
-    var context = this;
-    $.ajax({
-      url: this.url,
-      type: 'GET',
-      contentType: 'application/json',
-      success: function(){
-        context.render();
-      },
-      error: function(){
-
-      }
-    });
-  }
 
 });
