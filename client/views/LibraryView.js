@@ -3,9 +3,12 @@ var LibraryView = Backbone.View.extend({
 
   tagName: 'table',
 
-  initialize: function() {
-    this.render();
+  url:'http://parse.sfm6.hackreactor.com/mytunes/classes/songs',
 
+  initialize: function() {
+    
+    this.render();
+    this.fetch();
   },
 
   render: function() {
@@ -18,6 +21,21 @@ var LibraryView = Backbone.View.extend({
         return new LibraryEntryView({model: song}).render();
       })
     );
+  },
+
+  fetch : function(){
+    var context = this;
+    $.ajax({
+      url: this.url,
+      type: 'GET',
+      contentType: 'application/json',
+      success: function(){
+        context.render();
+      },
+      error: function(){
+
+      }
+    });
   }
 
 });
